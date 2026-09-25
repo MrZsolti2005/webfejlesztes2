@@ -12,6 +12,7 @@ import java.time.Year;
 @With
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Book {
+    @EqualsAndHashCode.Include
     String  isbn;
     String title;
     String author;
