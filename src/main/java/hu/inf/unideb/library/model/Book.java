@@ -3,8 +3,6 @@ package hu.inf.unideb.library.model;
 import lombok.*;
 
 import java.time.OffsetDateTime;
-import java.time.Year;
-import java.util.Random;
 
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
@@ -13,6 +11,7 @@ import java.util.Random;
 @With
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Book {
+    @NonNull
     @EqualsAndHashCode.Include
     String  isbn;
     String title;
@@ -30,5 +29,5 @@ public class Book {
         ROMANTIKUS,
         SCIFI,
         FANTASY
-    };
+    }
 }

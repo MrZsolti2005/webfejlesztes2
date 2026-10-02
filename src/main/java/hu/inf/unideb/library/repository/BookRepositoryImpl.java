@@ -28,9 +28,11 @@ public class BookRepositoryImpl implements BookRepository{
 
     @Override
     public Book create(@NonNull Book book) {
-        return book
+        final var updated = book
                 .withCreated(OffsetDateTime.now())
                 .withUpdated(OffsetDateTime.now());
+        books.put(book.getIsbn(), updated);
+        return updated;
     }
 
     @Override
