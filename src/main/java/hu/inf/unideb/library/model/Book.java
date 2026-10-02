@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.OffsetDateTime;
 import java.time.Year;
+import java.util.Random;
 
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
@@ -17,7 +18,8 @@ public class Book {
     String title;
     String author;
     Genre genre;
-    Year year;
+    String publisher;
+    int year;
     int pageCount;
     OffsetDateTime created;
     OffsetDateTime updated;

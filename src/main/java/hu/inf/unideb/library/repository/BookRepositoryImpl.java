@@ -2,10 +2,12 @@ package hu.inf.unideb.library.repository;
 
 import hu.inf.unideb.library.model.Book;
 import lombok.NonNull;
+import org.springframework.stereotype.Repository;
 
 import java.time.OffsetDateTime;
 import java.util.*;
 
+@Repository
 public class BookRepositoryImpl implements BookRepository{
 
     private final Map<String, Book> books;
