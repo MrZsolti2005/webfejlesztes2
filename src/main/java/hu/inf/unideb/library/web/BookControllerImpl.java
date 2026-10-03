@@ -6,8 +6,11 @@ import hu.inf.unideb.library.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +26,7 @@ public class BookControllerImpl implements BookController{
     public Book getOne(String isbn) {
         LOGGER.info("getOne({})", isbn);
 
-        return repository.findById(isbn).orElseThrow();
+        return repository.findById(isbn).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A könyv nem található ezzel az ISBN-nel: " + isbn));
     }
 
     @Override
@@ -37,7 +40,9 @@ public class BookControllerImpl implements BookController{
     public Book createOne(Book book) {
         LOGGER.info("createOne({})", book);
 
-        return repository.create(book.withIsbn(FAKER.code().isbn13()));
+        return repository.save(book.withIsbn(FAKER.code().isbn13()))
+                .withCreated(OffsetDateTime.now())
+                .withUpdated(OffsetDateTime.now());
     }
 
     @Override
@@ -47,14 +52,17 @@ public class BookControllerImpl implements BookController{
         return Optional.of(book)
                 .map(Book::getIsbn)
                 .flatMap(repository::findById)
-                .map(b -> b
-                        .withTitle(book.getTitle())
-                        .withAuthor(book.getAuthor())
-                        .withGenre(book.getGenre())
-                        .withPublisher(book.getPublisher())
-                        .withYear(book.getYear())
-                        .withPageCount(book.getPageCount()))
-                .map(repository::update)
+                .map(b -> {
+                    b.setTitle(book.getTitle());
+                    b.setAuthor(book.getAuthor());
+                    b.setPublisher(book.getPublisher());
+                    b.setGenre(book.getGenre());
+                    b.setPageCount(book.getPageCount());
+                    b.setPublicationYear(book.getPublicationYear());
+                    b.setUpdated(OffsetDateTime.now());
+                    return b;
+                })
+                .map(repository::save)
                 .orElseThrow();
     }
 

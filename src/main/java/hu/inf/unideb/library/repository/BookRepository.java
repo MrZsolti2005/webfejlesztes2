@@ -1,27 +1,9 @@
 package hu.inf.unideb.library.repository;
 
 import hu.inf.unideb.library.model.Book;
-import lombok.NonNull;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
 
-public interface BookRepository {
-    List<Book> findAll();
+public interface BookRepository extends JpaRepository<Book, String> {
 
-    Optional<Book> findById(
-            @NonNull String isbn
-    );
-
-    Book create(
-            @NonNull Book book
-    );
-
-    Book update(
-            @NonNull Book book
-    );
-
-    void deleteById(
-            @NonNull String isbn
-    );
 }

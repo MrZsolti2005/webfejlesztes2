@@ -3,12 +3,11 @@ package hu.inf.unideb.library.runner;
 import com.github.javafaker.Faker;
 import hu.inf.unideb.library.model.Book;
 import hu.inf.unideb.library.repository.BookRepository;
-import hu.inf.unideb.library.repository.BookRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.Year;
+import java.time.OffsetDateTime;
 import java.util.Random;
 
 @Component
@@ -23,15 +22,17 @@ public class BookRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         for (int i = 0; i < 100; i++) {
             System.out.println(
-                    repository.create(
+                    repository.save(
                             Book.builder()
                                     .isbn(FAKER.code().isbn13())
                                     .title(FAKER.book().title())
                                     .author(FAKER.book().author())
                                     .genre(Book.Genre.FANTASY)
                                     .publisher(FAKER.book().publisher())
-                                    .year(RANDOM.nextInt(1950,2026))
+                                    .publicationYear(RANDOM.nextInt(1950,2026))
                                     .pageCount(RANDOM.nextInt(40,600))
+                                    .created(OffsetDateTime.now())
+                                    .updated(OffsetDateTime.now())
                                     .build()
                     )
             );
