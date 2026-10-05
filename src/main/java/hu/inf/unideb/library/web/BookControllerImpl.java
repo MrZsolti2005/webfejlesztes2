@@ -26,7 +26,9 @@ public class BookControllerImpl implements BookController{
     public Book getOne(String isbn) {
         LOGGER.info("getOne({})", isbn);
 
-        return repository.findById(isbn).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A könyv nem található ezzel az ISBN-nel: " + isbn));
+        return repository
+                .findById(isbn)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A könyv nem található ezzel az ISBN-nel: " + isbn));
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 public interface BookController {
 
     @RequestMapping(
-            path = "api/library/{isbn}",
+            path = "api/library/books/{isbn}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -17,20 +17,20 @@ public interface BookController {
             @PathVariable String isbn
     );
 
-    @GetMapping("api/library")
+    @GetMapping("api/library/books")
     List<Book> getAll();
 
-    @PostMapping("api/library")
+    @PostMapping("api/library/books")
     Book createOne(
             @RequestBody Book book
     );
 
-    @PutMapping("/api/library")
+    @PutMapping("/api/library/books")
     Book updateOne(
             @RequestBody Book book
     );
 
-    @DeleteMapping("/api/library/{isbn}")
+    @DeleteMapping("/api/library/books/{isbn}")
     void deleteOne(
             @PathVariable String isbn
     );
