@@ -3,8 +3,10 @@ package hu.inf.unideb.library.runner;
 import com.github.javafaker.Faker;
 import hu.inf.unideb.library.model.Book;
 import hu.inf.unideb.library.repository.BookRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
@@ -12,12 +14,14 @@ import java.util.Random;
 
 @Component
 @RequiredArgsConstructor
+@Order(1)
 public class BookRunner implements CommandLineRunner {
 
     private static final Faker FAKER = new Faker();
     private static final Random RANDOM = new Random();
     private final BookRepository repository;
 
+    @Transactional
     @Override
     public void run(String... args) throws Exception {
         for (int i = 0; i < 100; i++) {

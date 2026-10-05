@@ -15,9 +15,8 @@ import java.time.OffsetDateTime;
 @Entity
 public class Member {
     @Id
-    @NonNull
     @EqualsAndHashCode.Include
-    int libraryCardNumber;
+    Integer libraryCardNumber;
     String name;
     String email;
     OffsetDateTime memberSince;
