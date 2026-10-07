@@ -41,9 +41,9 @@ public class RentalControllerImpl implements RentalController{
     public Rental createOne(Rental rental) {
         LOGGER.info("createOne({})", rental);
 
-        return repository.save(rental.withId(null))
+        return repository.save(rental.withId(null)
                 .withBookRented(OffsetDateTime.now())
-                .withUpdated(OffsetDateTime.now());
+                .withUpdated(OffsetDateTime.now()));
     }
 
     @Override
