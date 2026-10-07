@@ -6,6 +6,7 @@ import hu.inf.unideb.library.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -67,6 +68,11 @@ public class MemberControllerImpl implements MemberController{
     @Override
     public void deleteOne(Integer libraryCardNumber) {
         LOGGER.info("deleteOne({})", libraryCardNumber);
-        repository.deleteById(libraryCardNumber);
+        try {
+            repository.deleteById(libraryCardNumber);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "A könytár taghoz kölcsönzés tartozik, ezért nem törölhető!");
+        }
+
     }
 }

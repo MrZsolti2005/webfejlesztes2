@@ -18,9 +18,9 @@ public class Rental {
     @Id
     @EqualsAndHashCode.Include
     private UUID id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Member member;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Book book;
     private Integer starReview;
     private OffsetDateTime bookRented;

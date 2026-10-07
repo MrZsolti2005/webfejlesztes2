@@ -6,6 +6,7 @@ import hu.inf.unideb.library.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -71,6 +72,10 @@ public class BookControllerImpl implements BookController{
     @Override
     public void deleteOne(String isbn) {
         LOGGER.info("deleteOne({})", isbn);
-        repository.deleteById(isbn);
+        try {
+            repository.deleteById(isbn);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "A könyvhöz kölcsönzés tartozik, ezért nem törölhető!");
+        }
     }
 }

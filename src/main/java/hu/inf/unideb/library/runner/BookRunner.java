@@ -31,7 +31,7 @@ public class BookRunner implements CommandLineRunner {
                                     .isbn(FAKER.code().isbn13())
                                     .title(FAKER.book().title())
                                     .author(FAKER.book().author())
-                                    .genre(Book.Genre.FANTASY)
+                                    .genre(Book.Genre.next())
                                     .publisher(FAKER.book().publisher())
                                     .publicationYear(RANDOM.nextInt(1950,2026))
                                     .pageCount(RANDOM.nextInt(40,600))

@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.*;
 
 import java.time.OffsetDateTime;
+import java.util.Random;
 
 @Data
 @NoArgsConstructor
@@ -35,6 +36,12 @@ public class Book {
         THRILLER,
         ROMANTIKUS,
         SCIFI,
-        FANTASY
+        FANTASY;
+
+        private static final Random RANDOM = new Random();
+
+        public static Genre next() {
+            return values()[RANDOM.nextInt(values().length)];
+        }
     }
 }

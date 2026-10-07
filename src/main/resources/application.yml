@@ -15,3 +15,7 @@ spring:
     console:
       enabled: true
       path: /db
+  security:
+    user:
+      name: su
+      password: 0123456789
